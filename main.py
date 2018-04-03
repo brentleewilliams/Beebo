@@ -33,36 +33,7 @@ printer      = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
 # Called when button is briefly tapped.  Invokes time/temperature script.
 def tap():
   GPIO.output(ledPin, GPIO.HIGH)  # LED on while working
-  subprocess.call(["python", "timetemp.py"])
-  GPIO.output(ledPin, GPIO.LOW)
-
-
-# Called when button is held down.  Prints image, invokes shutdown process.
-def hold():
-  GPIO.output(ledPin, GPIO.HIGH)
-  printer.printImage(Image.open('gfx/goodbye.png'), True)
-  printer.feed(3)
-  subprocess.call("sync")
-  subprocess.call(["shutdown", "-h", "now"])
-  GPIO.output(ledPin, GPIO.LOW)
-
-
-# Called at periodic intervals (30 seconds by default).
-# Invokes twitter script.
-def interval():
-  GPIO.output(ledPin, GPIO.HIGH)
-  p = subprocess.Popen(["python", "twitter.py", str(lastId)],
-    stdout=subprocess.PIPE)
-  GPIO.output(ledPin, GPIO.LOW)
-  return p.communicate()[0] # Script pipes back lastId, returned to main
-
-
-# Called once per day (6:30am by default).
-# Invokes weather forecast and sudoku-gfx scripts.
-def daily():
-  GPIO.output(ledPin, GPIO.HIGH)
-  subprocess.call(["python", "forecast.py"])
-  subprocess.call(["python", "sudoku-gfx.py"])
+  subprocess.call(["python", "compliment.py"])
   GPIO.output(ledPin, GPIO.LOW)
 
 
@@ -108,6 +79,7 @@ prevTime        = time.time()
 tapEnable       = False
 holdEnable      = False
 
+
 # Main loop
 while(True):
 
@@ -136,32 +108,3 @@ while(True):
       else:                         # Button pressed
         tapEnable  = True           # Enable tap and hold actions
         holdEnable = True
-
-  # LED blinks while idle, for a brief interval every 2 seconds.
-  # Pin 18 is PWM-capable and a "sleep throb" would be nice, but
-  # the PWM-related library is a hassle for average users to install
-  # right now.  Might return to this later when it's more accessible.
-  if ((int(t) & 1) == 0) and ((t - int(t)) < 0.15):
-    GPIO.output(ledPin, GPIO.HIGH)
-  else:
-    GPIO.output(ledPin, GPIO.LOW)
-
-  # Once per day (currently set for 6:30am local time, or when script
-  # is first run, if after 6:30am), run forecast and sudoku scripts.
-  l = time.localtime()
-  if (60 * l.tm_hour + l.tm_min) > (60 * 6 + 30):
-    if dailyFlag == False:
-      daily()
-      dailyFlag = True
-  else:
-    dailyFlag = False  # Reset daily trigger
-
-  # Every 30 seconds, run Twitter scripts.  'lastId' is passed around
-  # to preserve state between invocations.  Probably simpler to do an
-  # import thing.
-  if t > nextInterval:
-    nextInterval = t + 30.0
-    result = interval()
-    if result is not None:
-      lastId = result.rstrip('\r\n')
-
