@@ -45,7 +45,17 @@ compliments = [
 "You're as a great as a cup of coffee",
 "GET MONEY WHITE BOY",
 "Home is whereever I'm with you",
-"Even when I don't want to talk, I like talking to you"
+"Even when I don't want to talk, I like talking to you",
+"When you’re not around, I tell all my robot friends how great you are.",
+"Your face. I like it.",
+"If I had legs, I’d give you a standing ovation.",
+"Watch out. I’m gonna kiss you.",
+"10 out of 10.",
+"Error 404: You’re too great to compliment. There are no words.",
+"Beep boop bop beep boop. (That’s robot for “You’re super awesome!”)",
+"You are a gentleman and a scholar.",
+"You have the most boop-worthy nose.",
+"I’m sure everyone around you is intimidated by your high intellect."
 ]
 
 printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
