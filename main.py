@@ -70,7 +70,7 @@ except:
 
 # Print greeting image
 printer.printImage(Image.open('gfx/hello.png'), True)
-printer.feed(3)
+printer.feed(5)
 GPIO.output(ledPin, GPIO.LOW)
 
 # Poll initial button state and time

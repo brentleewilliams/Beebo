@@ -3,11 +3,12 @@
 
 from Adafruit_Thermal import *
 import random
+import textwrap
 
 compliments = [
-"You're an awesome friend.",
-"You're a gift to those around you.",
-"You're a smart cookie.",
+"You are an awesome friend.",
+"You are a gift to those around you.",
+"You are a smart cookie.",
 "You are awesome!",
 "You have impeccable manners.",
 "I like your style.",
@@ -15,29 +16,28 @@ compliments = [
 "I appreciate you.",
 "You are the most perfect you there is.",
 "You are enough.",
-"You're strong.",
+"You are strong.",
 "Your perspective is refreshing.",
-"I'm grateful to know you.",
+"I am grateful to know you.",
 "You light up the room.",
 "You deserve a hug right now.",
 "You should be proud of yourself.",
-"You're more helpful than you realize.",
-"You have a great sense of humor.",
-"You've got an awesome sense of humor!",
+"You are more helpful than you realize.",
+"You have an awesome sense of humor!",
 "You are really courageous.",
 "Your kindness is a balm to all who encounter it.",
-"You're all that and a super-size bag of chips.",
-"Where'd you get that shirt... I love it!",
-"Son, I’m proud of you.",
+"You are all that and a super-size bag of chips.",
+"Where did you get that shirt... I love it!",
+"Son, I am proud of you.",
 "I want to be you when I grow up.",
 "You have inspired me and changed my life.",
-"If I was stuck on a deserted island and could only bring three things you're one of them.",
-"ARE YOU SURE YOU'VE NEVER DONE THIS BEFORE?",
+"If I was stuck on a deserted island and could only bring three things you are one of them.",
+"ARE YOU SURE YOU HAVE NEVER DONE THIS BEFORE?",
 "I need you for everything.",
 "Your smile is contagious",
 "You raise the bar",
 "You walk the walk and talk the talk",
-"You thre a great party",
+"You throw a great party",
 "You never cease to amaze me",
 "If you were a dinosaur, you would be a trex(arguably the best one).",
 "Thats a great idea!",
@@ -48,14 +48,14 @@ compliments = [
 "Even when I don't want to talk, I like talking to you",
 "When you’re not around, I tell all my robot friends how great you are.",
 "Your face. I like it.",
-"If I had legs, I’d give you a standing ovation.",
+"If I had legs, I would give you a standing ovation.",
 "Watch out. I’m gonna kiss you.",
 "10 out of 10.",
-"Error 404: You’re too great to compliment. There are no words.",
-"Beep boop bop beep boop. (That’s robot for “You’re super awesome!”)",
+"Error 404: You are too great to compliment. There are no words.",
+"Beep boop bop beep boop. (That’s robot for “You are super awesome!”)",
 "You are a gentleman and a scholar.",
 "You have the most boop-worthy nose.",
-"I’m sure everyone around you is intimidated by your high intellect."
+"I am sure everyone around you is intimidated by your high intellect."
 ]
 
 printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
@@ -65,7 +65,7 @@ printer.feed(2)
 printer.inverseOn()
 printer.println(random.choice(compliments))
 printer.inverseOff()
-printer.feed(3)
+printer.feed(4)
 
 printer.sleep()      # Tell printer to sleep
 printer.wake()       # Call wake() before printing again, even if reset
