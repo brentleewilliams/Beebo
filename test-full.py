@@ -63,18 +63,14 @@ compliment = random.choice(compliments)
 
 # Wrap selected string.
 wrapper = textwrap.TextWrapper(width=50)
-word_list = wrapper.wrap(text=compliment)
-
+final = wrapper.fill(text=compliment)
 
 printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
 
 # Test inverse on & off
 printer.feed(2)
 printer.inverseOn()
-printer.println(
-for element in word_list:
-    print(element)
-    )
+printer.println(final)
 printer.inverseOff()
 printer.feed(4)
 
