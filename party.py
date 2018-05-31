@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+from Adafruit_Thermal import *
 import random
 import textwrap
 
@@ -10,14 +11,15 @@ compliments = [
 "Sorry you didn't win this time :(."
 ]
 
-# Randomize and put into a string
-compliment = random.choice(compliments)
+printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
 
-# Wrap selected string.
-wrapper = textwrap.TextWrapper(width=50)
-word_list = wrapper.wrap(text=compliment)
+# Test inverse on & off
+printer.feed(2)
+printer.inverseOn()
+printer.println(random.choice(compliments))
+printer.inverseOff()
+printer.feed(4)
 
-
-# Print each line of wrapped string
-for element in word_list:
-    print(element)
+printer.sleep()      # Tell printer to sleep
+printer.wake()       # Call wake() before printing again, even if reset
+printer.setDefault() # Restore printer to defaults
